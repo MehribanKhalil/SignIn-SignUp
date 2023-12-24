@@ -1,10 +1,25 @@
 import express from "express"
 import mongoose from "mongoose"
 import dotenv from 'dotenv'
+import userRouter from './src/router/auth.js'
+import session from "express-session"
+
+
+dotenv.config()
 
 const app=express()
 app.use(express.json())
-dotenv.config()
+app.use(session({
+    secret:'jsf4h71lsnh',
+    resave: false,
+    saveUninitialized: true
+}))
+
+app.use('/users',userRouter)
+
+app.get('/',(req,res)=>{
+    res.send("hello")
+})
 
 
 
